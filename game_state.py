@@ -150,7 +150,7 @@ def process_movement_requests():
     movement_requests = level_grid.movement_request
     
     # Process each movement request
-    for destination, unit in movement_requests.items():
+    for destination, unit_list in movement_requests.items():
         # Check if the destination is within the grid bounds
         python_pos = destination.to_python(GRID_M)
         row, col = python_pos
@@ -162,8 +162,9 @@ def process_movement_requests():
                 continue
             
             # Move the unit to the destination
-            level_grid.move(unit, destination)
-            print(f"Unit {unit.name} moved to {destination}")
+            for unit in unit_list:
+                level_grid.move(unit, destination)
+                print(f"Unit {unit.name} moved to {destination}")
 
 def paint_cell(grid_pos: GridPosition):
     """Paint the cell at the given grid position with a random color, overlaying the current color"""

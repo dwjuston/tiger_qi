@@ -85,12 +85,12 @@ class LevelGrid:
         return attack_grid
 
     @property
-    def movement_request(self) -> dict[GridPosition, Unit]:
+    def movement_request(self) -> dict[GridPosition, list[Unit]]:
         # return a dict of unit name and its destination
-        movement_request = {}
+        movement_request = defaultdict(lambda: [])
         for unit in self.units.values():
             if unit.is_marching:
                 destination = unit.move_destination
                 if destination:
-                    movement_request[destination] = unit
+                    movement_request[destination].append(unit)
         return movement_request

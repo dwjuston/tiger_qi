@@ -32,6 +32,9 @@ class Unit:
     def set_group_id(self, group_id: int) -> None:
         self.group_id = group_id
 
+    def set_priority(self, priority: int) -> None:
+        self.priority = priority
+
     @property
     def attack_range(self):
         li = []
