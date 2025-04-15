@@ -26,7 +26,9 @@ def resolve_boundary_collision(
 
     # Remove invalid destinations from the movement requests
     for key in keys_to_remove:
+        print(f"Removing out of bounds destination: {key} from movement requests")
         del movement_requests[key]
+
 
     return movement_requests
 
@@ -43,11 +45,14 @@ def resolve_occupied_cell_collision(
     for destination, unit_list in movement_requests.items():
         if destination in units:
             occupying_unit = units[destination]
-            if not occupying_unit.is_marching:
+            if not occupying_unit.is_marching \
+                    or occupying_unit.move_destination not in movement_requests\
+                    or occupying_unit not in movement_requests[occupying_unit.move_destination]:
                 keys_to_remove.append(destination)
 
     # Remove invalid destinations from the movement requests
     for key in keys_to_remove:
+        print(f"Removing occupied destination: {key} from movement requests")
         del movement_requests[key]
     return movement_requests
 
@@ -61,6 +66,8 @@ def resolve_multiple_units_collision(
         filtered_unit_list = [unit for unit in unit_list if unit.priority == max_priority]
         chosen_unit = random.choice(filtered_unit_list)
         result_dict[destination] = chosen_unit
+        if len(unit_list) > 1:
+            print(f"Resolving multiple units collision at {destination}: Chose unit {chosen_unit.name} with priority {chosen_unit.priority}")
     return result_dict
 
 
@@ -89,6 +96,7 @@ def resolve_opposite_clan_collision(
 
     # Remove invalid destinations from the movement requests
     for key in keys_to_remove:
+        print(f"Removing opposite clan collision at {key} from movement requests")
         del movement_requests_single[key]
     return movement_requests_single
 

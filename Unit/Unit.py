@@ -15,8 +15,13 @@ class Unit:
     loc: GridPosition
     health = 5
     attack = 1
+    friendly_fire = False
     relative_attack_range: list[GridPosition] = [GridPosition(-1, 0), GridPosition(1, 0), GridPosition(0, 1)]  # relative position
     group_id: int = 1
+
+    self_defense: int = 0
+    guardian_defense: int = 0
+    relative_defense_range: list[GridPosition] = []
 
     max_x: int
     max_y: int
@@ -41,10 +46,21 @@ class Unit:
 
         # adjust relative attack range based on face direction
         adjusted_relative_attack_range = [rng.adjust_with_direction(self.face) for rng in self.relative_attack_range]
-
         for rel_pos in adjusted_relative_attack_range:
             new_grid_position = self.loc + rel_pos
             li.append(new_grid_position)
+        return li
+
+    @property
+    def defense_range(self):
+        li = []
+
+        # adjust relative defense range based on face direction
+        adjusted_relative_defense_range = [rng.adjust_with_direction(self.face) for rng in self.relative_defense_range]
+        for rel_pos in adjusted_relative_defense_range:
+            new_grid_position = self.loc + rel_pos
+            li.append(new_grid_position)
+
         return li
 
     @property

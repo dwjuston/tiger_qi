@@ -9,8 +9,6 @@ from game_state import (
     # Constants
     CELL_SIZE, GRID_M, GRID_N, WINDOW_WIDTH, WINDOW_HEIGHT,
     # Game state variables
-    screen, grid_colors, grid_texts, grid_text_sizes, current_position,
-    show_board, selected_units, level_grid, ally1, ally2, enemy1, enemy2,
     # Functions
     initialize_game, select_units_by_group, update_selected_units_face,
     toggle_selected_units_marching, process_movement_requests, paint_cell,
@@ -55,6 +53,15 @@ while running:
                 paint_board()
             elif event.key == pygame.K_2:
                 select_units_by_group(2)
+                paint_board()
+            elif event.key == pygame.K_3:
+                select_units_by_group(3)
+                paint_board()
+            elif event.key == pygame.K_4:
+                select_units_by_group(4)
+                paint_board()
+            elif event.key == pygame.K_5:
+                select_units_by_group(5)
                 paint_board()
                 
             # Handle WASD keys for updating the selected units' face direction
